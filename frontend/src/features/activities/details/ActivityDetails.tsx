@@ -12,7 +12,7 @@ import ActivityDetailedSidebar from './ActivityDetailedSidebar';
 interface DetailParams {
   id: string;
 }
-
+// jordan teste
 const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
   match,
   history
