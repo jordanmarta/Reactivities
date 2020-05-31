@@ -20,7 +20,7 @@ namespace Application.User
         public class Command : IRequest<User>
         {
             public string DisplayName { get; set; }
-            public string Username { get; set; }
+            public string UserName { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
         }
@@ -30,7 +30,7 @@ namespace Application.User
             public CommandValidator()
             {
                 RuleFor(x => x.DisplayName).NotEmpty();
-                RuleFor(x => x.Username).NotEmpty();
+                RuleFor(x => x.UserName).NotEmpty();
                 RuleFor(x => x.Email).NotEmpty().EmailAddress();
                 RuleFor(x => x.Password).Password();
             }
@@ -58,7 +58,7 @@ namespace Application.User
                         Email = "Email already exists"
                     });
 
-                if (await _context.Users.AnyAsync(x => x.UserName == request.Username))
+                if (await _context.Users.AnyAsync(x => x.UserName == request.Email))
                     throw new RestException(HttpStatusCode.BadRequest, new
                     {
                         Username = "Username already exists"
@@ -68,7 +68,7 @@ namespace Application.User
                 {
                     DisplayName = request.DisplayName,
                     Email = request.Email,
-                    UserName = request.Username
+                    UserName = request.UserName
                 };
 
                 var result = await _userManager.CreateAsync(user, request.Password);
